@@ -1,0 +1,11 @@
+{
+  "variant": "lite",
+  "features": {
+    "authentication": true,
+    "simple_roles": true,
+    "granular_permissions": true,
+    "multitenancy": false
+  },
+  "dependencies": ["better-auth", "drizzle-orm", "@casl/ability", "postgres"],
+  "description": "Sistema completo de roles y permisos con CASL"
+}
