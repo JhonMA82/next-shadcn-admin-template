@@ -1,14 +1,14 @@
-import { defineConfig, globalIgnores } from "eslint/config";
+import pluginJs from "@eslint/js";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
-import pluginJs from "@eslint/js";
 import pluginImport from "eslint-plugin-import";
+import prettier from "eslint-plugin-prettier";
+import securityPlugin from "eslint-plugin-security";
+import sonarjs from "eslint-plugin-sonarjs";
+import unicorn from "eslint-plugin-unicorn";
+import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import securityPlugin from "eslint-plugin-security";
-import prettier from "eslint-plugin-prettier";
-import unicorn from "eslint-plugin-unicorn";
-import sonarjs from "eslint-plugin-sonarjs";
 
 export default defineConfig([
   ...nextVitals,
@@ -37,6 +37,7 @@ export default defineConfig([
     rules: {
       // Prettier integration rules
       "prettier/prettier": "warn",
+      "prettier/prettier": ["error", { endOfLine: "auto" }],
 
       // File Naming
       "unicorn/filename-case": [
