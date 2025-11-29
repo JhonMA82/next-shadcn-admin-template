@@ -1,0 +1,12 @@
+{
+  "variant": "full",
+  "features": {
+    "authentication": true,
+    "simple_roles": true,
+    "granular_permissions": true,
+    "multitenancy": true,
+    "tenant_isolation": true
+  },
+  "dependencies": ["better-auth", "drizzle-orm", "@casl/ability", "postgres", "@paralleldrive/cuid2"],
+  "description": "Multitenancy con roles y permisos por organización"
+}
