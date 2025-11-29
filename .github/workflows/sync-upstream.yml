@@ -1,0 +1,52 @@
+name: Sync Fork con Upstream (3 Variantes)
+
+on:
+    schedule:
+        - cron: "0 3 * * 1"
+    workflow_dispatch:
+
+jobs:
+    sync-main:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with: { ref: main, fetch-depth: 0 }
+            - name: Sync con upstream
+              run: |
+                  git remote add upstream https://github.com/arhamkhnz/next-shadcn-admin-dashboard.git
+                  git fetch upstream
+                  git merge upstream/main --no-edit
+                  git push origin main
+
+    sync-basic:
+        needs: sync-main
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with: { ref: jhon-stack-basic, fetch-depth: 0 }
+            - name: Merge desde main
+              run: |
+                  git merge origin/main --no-edit || echo "⚠️ Revisar conflictos en basic"
+                  git push origin jhon-stack-basic || true
+
+    sync-lite:
+        needs: sync-basic
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with: { ref: jhon-stack-lite, fetch-depth: 0 }
+            - name: Merge desde basic
+              run: |
+                  git merge origin/jhon-stack-basic --no-edit || echo "⚠️ Revisar conflictos en lite"
+                  git push origin jhon-stack-lite || true
+
+    sync-full:
+        needs: sync-lite
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with: { ref: jhon-stack-full, fetch-depth: 0 }
+            - name: Merge desde lite
+              run: |
+                  git merge origin/jhon-stack-lite --no-edit || echo "⚠️ Revisar conflictos en full"
+                  git push origin jhon-stack-full || true

@@ -1,0 +1,11 @@
+{
+  "variant": "basic",
+  "features": {
+    "authentication": true,
+    "simple_roles": true,
+    "granular_permissions": false,
+    "multitenancy": false
+  },
+  "dependencies": ["better-auth", "drizzle-orm", "postgres"],
+  "description": "Roles simples (Admin/Editor/Viewer) sin permisos granulares"
+}
