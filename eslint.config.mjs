@@ -37,6 +37,7 @@ export default defineConfig([
     rules: {
       // Prettier integration rules
       "prettier/prettier": "warn",
+      "prettier/prettier": ["error", { endOfLine: "auto" }],
 
       // File Naming
       "unicorn/filename-case": [

@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+
+import "./src/config/env.js";
+
 const nextConfig = {
   reactCompiler: true,
   compiler: {
