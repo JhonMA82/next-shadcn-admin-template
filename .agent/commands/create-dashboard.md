@@ -44,6 +44,7 @@ src/app/(main)/dashboard/{nombre}/
 ```
 src/app/(main)/dashboard/{nombre}/
 ├── _components/                    # Componentes EXCLUSIVOS de este dashboard
+│   ├── index.ts                    # Archivo barrel para exportaciones centralizadas
 │   ├── overview-cards.tsx          # Cards de resumen/métricas
 │   ├── {nombre}-table.tsx          # Tabla de datos (si aplica)
 │   └── columns.{nombre}.tsx        # Definición de columnas (si tiene tabla)
@@ -54,6 +55,7 @@ src/app/(main)/dashboard/{nombre}/
 ```
 src/app/(main)/dashboard/analytics/
 ├── _components/
+│   ├── index.ts                    # Exportaciones centralizadas
 │   ├── overview-cards.tsx
 │   ├── analytics-table.tsx
 │   ├── columns.analytics.tsx
@@ -63,15 +65,51 @@ src/app/(main)/dashboard/analytics/
 
 ---
 
-### 3. Generar `page.tsx`
+### 3. Crear Archivo Barrel (`_components/index.ts`)
+
+**⚠️ IMPORTANTE:** Siempre crear este archivo primero para evitar errores de resolución de módulos.
+
+**Ubicación:** `src/app/(main)/dashboard/{nombre}/_components/index.ts`
+
+**Template Base:**
+
+```typescript
+// Exportaciones centralizadas del dashboard {nombre}
+export { OverviewCards } from "./overview-cards";
+
+// Agregar exportaciones según los componentes creados:
+// export { {Nombre}Table } from "./{nombre}-table";
+// export { columns as {nombre}Columns } from "./columns.{nombre}";
+// export { {Nombre}Chart } from "./{nombre}-chart";
+```
+
+**Ejemplo para `analytics`:**
+
+```typescript
+// Exportaciones centralizadas del dashboard analytics
+export { OverviewCards } from "./overview-cards";
+export { AnalyticsTable } from "./analytics-table";
+export { columns as analyticsColumns } from "./columns.analytics";
+export { MetricsChart } from "./metrics-chart";
+```
+
+**Beneficios:**
+- ✅ Evita errores de módulo no encontrado en TypeScript
+- ✅ Importaciones más limpias: `import { OverviewCards, AnalyticsTable } from "./_components"`
+- ✅ Punto centralizado para gestionar exportaciones
+- ✅ Facilita refactoring y reorganización de código
+
+---
+
+### 4. Generar `page.tsx`
 
 **Template Base:**
 
 ```typescript
 import type { Metadata } from "next";
 
-import { OverviewCards } from "./_components/overview-cards";
-// Importar otros componentes según tipo
+import { OverviewCards } from "./_components";
+// Importar otros componentes desde ./_components según tipo
 
 export const metadata: Metadata = {
   title: "{Título} Dashboard - Studio Admin",
@@ -130,7 +168,7 @@ export default function {Nombre}DashboardPage() {
 
 ---
 
-### 4. Generar `overview-cards.tsx`
+### 5. Generar `overview-cards.tsx`
 
 **Template:**
 
@@ -187,7 +225,7 @@ export function OverviewCards() {
 
 ---
 
-### 5. Generar Componentes Adicionales (Según Tipo)
+### 6. Generar Componentes Adicionales (Según Tipo)
 
 #### Si incluye Tabla de Datos:
 
@@ -317,7 +355,7 @@ export function {Nombre}Chart() {
 
 ---
 
-### 6. Actualizar Navegación del Sidebar
+### 7. Actualizar Navegación del Sidebar
 
 **Ubicación:** `src/navigation/sidebar/sidebar-items.ts`
 
@@ -339,7 +377,7 @@ import { {IconoImportado} } from "lucide-react";
 
 ---
 
-### 7. Crear Tipos TypeScript (Opcional)
+### 8. Crear Tipos TypeScript (Opcional)
 
 **Si necesita tipos específicos:**
 
@@ -363,7 +401,7 @@ export interface {Nombre}Filter {
 
 ---
 
-### 8. Agregar Data Mock (Desarrollo)
+### 9. Agregar Data Mock (Desarrollo)
 
 **Ubicación:** `src/data/{nombre}.ts`
 
@@ -381,12 +419,13 @@ export const mock{Nombre}Data: {Nombre}Data[] = [
 
 ---
 
-### 9. Checklist Final
+### 10. Checklist Final
 
 Antes de completar, verificar:
 
 - [ ] ✅ Carpeta creada en `src/app/(main)/dashboard/{nombre}/`
-- [ ] ✅ `page.tsx` con metadata SEO correcta
+- [ ] ✅ Archivo barrel `_components/index.ts` con todas las exportaciones
+- [ ] ✅ `page.tsx` con metadata SEO correcta e importaciones desde `_components`
 - [ ] ✅ `_components/` con al menos 1 componente
 - [ ] ✅ Componentes usan "use client" solo cuando necesario
 - [ ] ✅ Imports ordenados según eslint config
@@ -399,7 +438,7 @@ Antes de completar, verificar:
 
 ---
 
-### 10. Comandos Post-Generación
+### 11. Comandos Post-Generación
 
 ```bash
 # Verificar tipos
@@ -454,6 +493,8 @@ http://localhost:3000/dashboard/{nombre}
 ### Arquitectura de Colocalización
 - ✅ **TODO** el código específico del dashboard va en su carpeta
 - ✅ Solo usar `_components/` para componentes EXCLUSIVOS
+- ✅ **SIEMPRE** crear `_components/index.ts` para exportaciones centralizadas
+- ✅ Importar desde `_components` en lugar de rutas individuales
 - ✅ Componentes compartidos van en `src/components/`
 - ✅ NO crear componentes en `_components/` si se usan en múltiples dashboards
 
@@ -488,6 +529,7 @@ http://localhost:3000/dashboard/{nombre}
 **Resultado:**
 ```
 ✓ Created src/app/(main)/dashboard/analytics/
+✓ Created src/app/(main)/dashboard/analytics/_components/index.ts
 ✓ Created src/app/(main)/dashboard/analytics/_components/overview-cards.tsx
 ✓ Created src/app/(main)/dashboard/analytics/_components/traffic-chart.tsx
 ✓ Created src/app/(main)/dashboard/analytics/_components/analytics-table.tsx

@@ -1,5 +1,4 @@
-import { OverviewCards } from "./_components/overview-cards";
-import { StudentsTable } from "./_components/students-table";
+import { OverviewCards, StudentsTable } from "./_components";
 
 export default function Page() {
   return (
