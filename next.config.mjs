@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactCompiler: true,
+  reactStrictMode: true,
+  poweredByHeader: false,
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
@@ -12,6 +14,23 @@ const nextConfig = {
         permanent: false,
       },
     ];
+  },
+    async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+        ],
+      },
+    ]
   },
 }
 
