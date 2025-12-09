@@ -5,9 +5,9 @@ import { Inter } from "next/font/google";
 
 import { Toaster } from "@/components/ui/sonner";
 import { APP_CONFIG } from "@/config/app-config";
-import { getPreference } from "@/server/server-actions";
+import { PREFERENCE_DEFAULTS } from "@/lib/preferences/preferences-config";
+import { ThemeBootScript } from "@/scripts/theme-boot";
 import { PreferencesStoreProvider } from "@/stores/preferences/preferences-provider";
-import { THEME_MODE_VALUES, THEME_PRESET_VALUES, type ThemePreset, type ThemeMode } from "@/types/preferences/theme";
 
 import "./globals.css";
 
@@ -18,14 +18,31 @@ export const metadata: Metadata = {
   description: APP_CONFIG.meta.description,
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const themeMode = await getPreference<ThemeMode>("theme_mode", THEME_MODE_VALUES, "light");
-  const themePreset = await getPreference<ThemePreset>("theme_preset", THEME_PRESET_VALUES, "default");
-
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const { theme_mode, theme_preset, content_layout, navbar_style, sidebar_variant, sidebar_collapsible } =
+    PREFERENCE_DEFAULTS;
   return (
-    <html lang="en" className={themeMode} data-theme-preset={themePreset} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={theme_mode}
+      data-theme-preset={theme_preset}
+      data-content-layout={content_layout}
+      data-navbar-style={navbar_style}
+      data-sidebar-variant={sidebar_variant}
+      data-sidebar-collapsible={sidebar_collapsible}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Applies theme and layout preferences on load to avoid flicker and unnecessary server rerenders. */}
+        <ThemeBootScript />
+      </head>
       <body className={`${inter.className} min-h-screen antialiased`}>
-        <PreferencesStoreProvider themeMode={themeMode} themePreset={themePreset}>
+        <PreferencesStoreProvider
+          themeMode={theme_mode}
+          themePreset={theme_preset}
+          contentLayout={content_layout}
+          navbarStyle={navbar_style}
+        >
           {children}
           <Toaster />
         </PreferencesStoreProvider>

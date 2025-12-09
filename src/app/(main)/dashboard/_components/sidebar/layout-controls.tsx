@@ -7,47 +7,71 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { updateContentLayout, updateNavbarStyle } from "@/lib/layout-utils";
-import { updateThemeMode, updateThemePreset } from "@/lib/theme-utils";
-import { setValueToCookie } from "@/server/server-actions";
+import type { SidebarVariant, SidebarCollapsible, ContentLayout, NavbarStyle } from "@/lib/preferences/layout";
+import {
+  applyContentLayout,
+  applyNavbarStyle,
+  applySidebarVariant,
+  applySidebarCollapsible,
+} from "@/lib/preferences/layout-utils";
+import { persistPreference } from "@/lib/preferences/preferences-storage";
+import { THEME_PRESET_OPTIONS, type ThemePreset, type ThemeMode } from "@/lib/preferences/theme";
+import { applyThemeMode, applyThemePreset } from "@/lib/preferences/theme-utils";
 import { usePreferencesStore } from "@/stores/preferences/preferences-provider";
-import type { SidebarVariant, SidebarCollapsible, ContentLayout, NavbarStyle } from "@/types/preferences/layout";
-import { THEME_PRESET_OPTIONS, type ThemePreset, type ThemeMode } from "@/types/preferences/theme";
 
-type LayoutControlsProps = {
-  readonly variant: SidebarVariant;
-  readonly collapsible: SidebarCollapsible;
-  readonly contentLayout: ContentLayout;
-  readonly navbarStyle: NavbarStyle;
-};
-
-export function LayoutControls(props: LayoutControlsProps) {
-  const { variant, collapsible, contentLayout, navbarStyle } = props;
-
+export function LayoutControls() {
   const themeMode = usePreferencesStore((s) => s.themeMode);
   const setThemeMode = usePreferencesStore((s) => s.setThemeMode);
   const themePreset = usePreferencesStore((s) => s.themePreset);
   const setThemePreset = usePreferencesStore((s) => s.setThemePreset);
+  const contentLayout = usePreferencesStore((s) => s.contentLayout);
+  const setContentLayout = usePreferencesStore((s) => s.setContentLayout);
+  const navbarStyle = usePreferencesStore((s) => s.navbarStyle);
+  const setNavbarStyle = usePreferencesStore((s) => s.setNavbarStyle);
+  const variant = usePreferencesStore((s) => s.sidebarVariant);
+  const setSidebarVariant = usePreferencesStore((s) => s.setSidebarVariant);
+  const collapsible = usePreferencesStore((s) => s.sidebarCollapsible);
+  const setSidebarCollapsible = usePreferencesStore((s) => s.setSidebarCollapsible);
 
-  const handleValueChange = async (key: string, value: any) => {
-    if (key === "theme_mode") {
-      updateThemeMode(value);
-      setThemeMode(value as ThemeMode);
-    }
+  const onThemePresetChange = async (preset: ThemePreset) => {
+    applyThemePreset(preset);
+    setThemePreset(preset);
+    persistPreference("theme_preset", preset);
+  };
 
-    if (key === "theme_preset") {
-      updateThemePreset(value);
-      setThemePreset(value as ThemePreset);
-    }
+  const onThemeModeChange = async (mode: ThemeMode | "") => {
+    if (!mode) return;
+    applyThemeMode(mode);
+    setThemeMode(mode);
+    persistPreference("theme_mode", mode);
+  };
 
-    if (key === "content_layout") {
-      updateContentLayout(value);
-    }
+  const onContentLayoutChange = async (layout: ContentLayout | "") => {
+    if (!layout) return;
+    applyContentLayout(layout);
+    setContentLayout(layout);
+    persistPreference("content_layout", layout);
+  };
 
-    if (key === "navbar_style") {
-      updateNavbarStyle(value);
-    }
-    await setValueToCookie(key, value);
+  const onNavbarStyleChange = async (style: NavbarStyle | "") => {
+    if (!style) return;
+    applyNavbarStyle(style);
+    setNavbarStyle(style);
+    persistPreference("navbar_style", style);
+  };
+
+  const onSidebarStyleChange = async (value: SidebarVariant | "") => {
+    if (!value) return;
+    setSidebarVariant(value);
+    applySidebarVariant(value);
+    persistPreference("sidebar_variant", value);
+  };
+
+  const onSidebarCollapseModeChange = async (value: SidebarCollapsible | "") => {
+    if (!value) return;
+    setSidebarCollapsible(value);
+    applySidebarCollapsible(value);
+    persistPreference("sidebar_collapsible", value);
   };
 
   return (
@@ -60,13 +84,16 @@ export function LayoutControls(props: LayoutControlsProps) {
       <PopoverContent align="end">
         <div className="flex flex-col gap-5">
           <div className="space-y-1.5">
-            <h4 className="text-sm leading-none font-medium">Layout Settings</h4>
+            <h4 className="text-sm leading-none font-medium">Preferences</h4>
             <p className="text-muted-foreground text-xs">Customize your dashboard layout preferences.</p>
+            <p className="text-muted-foreground text-xs font-medium">
+              *Preferences use cookies by default. You can switch between cookies, localStorage, or no storage in code.
+            </p>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-3 **:data-[slot=toggle-group]:w-full **:data-[slot=toggle-group-item]:flex-1 **:data-[slot=toggle-group-item]:text-xs">
             <div className="space-y-1">
-              <Label className="text-xs font-medium">Preset</Label>
-              <Select value={themePreset} onValueChange={(value) => handleValueChange("theme_preset", value)}>
+              <Label className="text-xs font-medium">Theme Preset</Label>
+              <Select value={themePreset} onValueChange={onThemePresetChange}>
                 <SelectTrigger size="sm" className="w-full text-xs">
                   <SelectValue placeholder="Preset" />
                 </SelectTrigger>
@@ -87,14 +114,13 @@ export function LayoutControls(props: LayoutControlsProps) {
             </div>
 
             <div className="space-y-1">
-              <Label className="text-xs font-medium">Mode</Label>
+              <Label className="text-xs font-medium">Theme Mode</Label>
               <ToggleGroup
-                className="w-full **:data-[slot=toggle-group-item]:flex-1 **:data-[slot=toggle-group-item]:text-xs"
                 size="sm"
                 variant="outline"
                 type="single"
                 value={themeMode}
-                onValueChange={(value) => handleValueChange("theme_mode", value)}
+                onValueChange={onThemeModeChange}
               >
                 <ToggleGroupItem value="light" aria-label="Toggle inset">
                   Light
@@ -106,14 +132,49 @@ export function LayoutControls(props: LayoutControlsProps) {
             </div>
 
             <div className="space-y-1">
-              <Label className="text-xs font-medium">Sidebar Variant</Label>
+              <Label className="text-xs font-medium">Page Layout</Label>
               <ToggleGroup
-                className="w-full **:data-[slot=toggle-group-item]:flex-1 **:data-[slot=toggle-group-item]:text-xs"
+                size="sm"
+                variant="outline"
+                type="single"
+                value={contentLayout}
+                onValueChange={onContentLayoutChange}
+              >
+                <ToggleGroupItem value="centered" aria-label="Toggle centered">
+                  Centered
+                </ToggleGroupItem>
+                <ToggleGroupItem value="full-width" aria-label="Toggle full-width">
+                  Full Width
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </div>
+
+            <div className="space-y-1">
+              <Label className="text-xs font-medium">Navbar Behavior</Label>
+              <ToggleGroup
+                size="sm"
+                variant="outline"
+                type="single"
+                value={navbarStyle}
+                onValueChange={onNavbarStyleChange}
+              >
+                <ToggleGroupItem value="sticky" aria-label="Toggle sticky">
+                  Sticky
+                </ToggleGroupItem>
+                <ToggleGroupItem value="scroll" aria-label="Toggle scroll">
+                  Scroll
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </div>
+
+            <div className="space-y-1">
+              <Label className="text-xs font-medium">Sidebar Style</Label>
+              <ToggleGroup
                 size="sm"
                 variant="outline"
                 type="single"
                 value={variant}
-                onValueChange={(value) => handleValueChange("sidebar_variant", value)}
+                onValueChange={onSidebarStyleChange}
               >
                 <ToggleGroupItem value="inset" aria-label="Toggle inset">
                   Inset
@@ -128,58 +189,19 @@ export function LayoutControls(props: LayoutControlsProps) {
             </div>
 
             <div className="space-y-1">
-              <Label className="text-xs font-medium">Navbar Style</Label>
+              <Label className="text-xs font-medium">Sidebar Collapse Mode</Label>
               <ToggleGroup
-                className="w-full **:data-[slot=toggle-group-item]:flex-1 **:data-[slot=toggle-group-item]:text-xs"
-                size="sm"
-                variant="outline"
-                type="single"
-                value={navbarStyle}
-                onValueChange={(value) => handleValueChange("navbar_style", value)}
-              >
-                <ToggleGroupItem value="sticky" aria-label="Toggle sticky">
-                  Sticky
-                </ToggleGroupItem>
-                <ToggleGroupItem value="scroll" aria-label="Toggle scroll">
-                  Scroll
-                </ToggleGroupItem>
-              </ToggleGroup>
-            </div>
-
-            <div className="space-y-1">
-              <Label className="text-xs font-medium">Sidebar Collapsible</Label>
-              <ToggleGroup
-                className="w-full **:data-[slot=toggle-group-item]:flex-1 **:data-[slot=toggle-group-item]:text-xs"
                 size="sm"
                 variant="outline"
                 type="single"
                 value={collapsible}
-                onValueChange={(value) => handleValueChange("sidebar_collapsible", value)}
+                onValueChange={onSidebarCollapseModeChange}
               >
                 <ToggleGroupItem value="icon" aria-label="Toggle icon">
                   Icon
                 </ToggleGroupItem>
                 <ToggleGroupItem value="offcanvas" aria-label="Toggle offcanvas">
                   OffCanvas
-                </ToggleGroupItem>
-              </ToggleGroup>
-            </div>
-
-            <div className="space-y-1">
-              <Label className="text-xs font-medium">Content Layout</Label>
-              <ToggleGroup
-                className="w-full **:data-[slot=toggle-group-item]:flex-1 **:data-[slot=toggle-group-item]:text-xs"
-                size="sm"
-                variant="outline"
-                type="single"
-                value={contentLayout}
-                onValueChange={(value) => handleValueChange("content_layout", value)}
-              >
-                <ToggleGroupItem value="centered" aria-label="Toggle centered">
-                  Centered
-                </ToggleGroupItem>
-                <ToggleGroupItem value="full-width" aria-label="Toggle full-width">
-                  Full Width
                 </ToggleGroupItem>
               </ToggleGroup>
             </div>
