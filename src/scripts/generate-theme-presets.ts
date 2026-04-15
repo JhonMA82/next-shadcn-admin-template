@@ -14,10 +14,10 @@
  * - This generation step is currently automated using a Husky pre-push hook.
  * - You may optionally integrate it directly into a build step if preferred.
  */
-import fs from "fs";
-import path from "path";
 
-import prettier from "prettier";
+import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
 
 const presetDir = path.resolve(__dirname, "../styles/presets");
 
@@ -34,7 +34,6 @@ if (files.length === 0) {
   console.warn("⚠️ No preset CSS files found. Only default preset will be included.");
 }
 
-// eslint-disable-next-line complexity
 const presets = files.map((file) => {
   const filePath = path.join(presetDir, file);
   const content = fs.readFileSync(filePath, "utf8");
@@ -108,8 +107,12 @@ const updated = fileContent.replace(
   generatedBlock,
 );
 
-async function main() {
-  const formatted = await prettier.format(updated, { parser: "typescript" });
+function main() {
+  const biomeBin = require.resolve("@biomejs/biome/bin/biome");
+  const formatted = execFileSync(process.execPath, [biomeBin, "format", "--stdin-file-path", outputPath], {
+    input: updated,
+    encoding: "utf8",
+  });
 
   if (formatted === fileContent) {
     console.log("ℹ️  No changes in theme.ts");
@@ -120,7 +123,9 @@ async function main() {
   console.log("✅ theme.ts updated with new theme presets");
 }
 
-main().catch((err) => {
+try {
+  main();
+} catch (err) {
   console.error("❌ Unexpected error while generating theme presets:", err);
   process.exit(1);
-});
+}

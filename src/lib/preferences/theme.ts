@@ -1,10 +1,12 @@
 export const THEME_MODE_OPTIONS = [
   { label: "Light", value: "light" },
   { label: "Dark", value: "dark" },
+  { label: "System", value: "system" },
 ] as const;
 
 export const THEME_MODE_VALUES = THEME_MODE_OPTIONS.map((o) => o.value);
 export type ThemeMode = (typeof THEME_MODE_VALUES)[number];
+export type ResolvedThemeMode = "light" | "dark";
 
 // --- generated:themePresets:start ---
 
@@ -13,15 +15,15 @@ export const THEME_PRESET_OPTIONS = [
     label: "Default",
     value: "default",
     primary: {
-      light: "oklch(0.205 0 0)",
-      dark: "oklch(0.922 0 0)",
+      light: "oklch(0.488 0.243 264.376)",
+      dark: "oklch(0.424 0.199 265.638)",
     },
   },
   {
     label: "Brutalist",
     value: "brutalist",
     primary: {
-      light: "oklch(0.6489 0.2370 26.9728)",
+      light: "oklch(0.6489 0.237 26.9728)",
       dark: "oklch(0.7044 0.1872 23.1858)",
     },
   },

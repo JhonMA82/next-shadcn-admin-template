@@ -1,26 +1,35 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { Monitor, Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { persistPreference } from "@/lib/preferences/preferences-storage";
-import { applyThemeMode } from "@/lib/preferences/theme-utils";
 import { usePreferencesStore } from "@/stores/preferences/preferences-provider";
+
+const THEME_CYCLE = ["light", "dark", "system"] as const;
 
 export function ThemeSwitcher() {
   const themeMode = usePreferencesStore((s) => s.themeMode);
   const setThemeMode = usePreferencesStore((s) => s.setThemeMode);
 
-  const handleValueChange = async () => {
-    const newTheme = themeMode === "dark" ? "light" : "dark";
-    applyThemeMode(newTheme);
-    setThemeMode(newTheme);
-    persistPreference("theme_mode", newTheme);
+  const cycleTheme = () => {
+    const currentIndex = THEME_CYCLE.indexOf(themeMode);
+    const nextTheme = THEME_CYCLE[(currentIndex + 1) % THEME_CYCLE.length];
+
+    setThemeMode(nextTheme);
+    persistPreference("theme_mode", nextTheme);
   };
 
   return (
-    <Button size="icon" onClick={handleValueChange}>
-      {themeMode === "dark" ? <Sun /> : <Moon />}
+    <Button size="icon" onClick={cycleTheme} aria-label={`Current theme: ${themeMode}. Click to cycle themes`}>
+      {/* SYSTEM */}
+      <Monitor className="hidden [html[data-theme-mode=system]_&]:block" />
+
+      {/* DARK (resolved) */}
+      <Sun className="hidden dark:block [html[data-theme-mode=system]_&]:hidden" />
+
+      {/* LIGHT (resolved) */}
+      <Moon className="block dark:hidden [html[data-theme-mode=system]_&]:hidden" />
     </Button>
   );
 }

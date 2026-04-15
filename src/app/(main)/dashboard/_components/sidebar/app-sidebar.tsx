@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 
-import { Settings, CircleHelp, Search, Database, ClipboardList, File, Command } from "lucide-react";
+import { CircleHelp, ClipboardList, Command, Database, File, Search, Settings } from "lucide-react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   Sidebar,
@@ -20,8 +21,9 @@ import { usePreferencesStore } from "@/stores/preferences/preferences-provider";
 
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
+import { SidebarSupportCard } from "./sidebar-support-card";
 
-const data = {
+const _data = {
   navSecondary: [
     {
       title: "Settings",
@@ -59,18 +61,26 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const sidebarVariant = usePreferencesStore((s) => s.sidebarVariant);
-  const sidebarCollapsible = usePreferencesStore((s) => s.sidebarCollapsible);
+  const { sidebarVariant, sidebarCollapsible, isSynced } = usePreferencesStore(
+    useShallow((s) => ({
+      sidebarVariant: s.sidebarVariant,
+      sidebarCollapsible: s.sidebarCollapsible,
+      isSynced: s.isSynced,
+    })),
+  );
+
+  const variant = isSynced ? sidebarVariant : props.variant;
+  const collapsible = isSynced ? sidebarCollapsible : props.collapsible;
 
   return (
-    <Sidebar variant={sidebarVariant} collapsible={sidebarCollapsible} {...props}>
+    <Sidebar {...props} variant={variant} collapsible={collapsible}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
+            <SidebarMenuButton asChild>
               <Link prefetch={false} href="/dashboard/default">
                 <Command />
-                <span className="text-base font-semibold">{APP_CONFIG.name}</span>
+                <span className="font-semibold text-base">{APP_CONFIG.name}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -82,6 +92,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
+        <SidebarSupportCard />
         <NavUser user={rootUser} />
       </SidebarFooter>
     </Sidebar>
