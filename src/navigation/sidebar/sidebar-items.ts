@@ -8,6 +8,7 @@ import {
   GraduationCap,
   Kanban,
   LayoutDashboard,
+  ListTodo,
   Lock,
   type LucideIcon,
   Mail,
@@ -68,11 +69,11 @@ export const sidebarItems: NavGroup[] = [
         url: "/dashboard/analytics",
         icon: Gauge,
       },
-      // {
-      //   title: "Productivity",
-      //   url: "/dashboard/productivity",
-      //   icon: Kanban,
-      // },
+      {
+        title: "Productivity",
+        url: "/dashboard/productivity",
+        icon: ListTodo,
+      },
       {
         title: "E-commerce",
         url: "/dashboard/coming-soon",
@@ -159,7 +160,11 @@ export const sidebarItems: NavGroup[] = [
       {
         title: "Dashboards",
         url: "/dashboard/default-v1",
-        subItems: [{ title: "Default V1", url: "/dashboard/default-v1" }],
+        subItems: [
+          { title: "Default V1", url: "/dashboard/default-v1" },
+          { title: "CRM V1", url: "/dashboard/crm-v1" },
+          { title: "Finance V1", url: "/dashboard/finance-v1" },
+        ],
       },
     ],
   },
