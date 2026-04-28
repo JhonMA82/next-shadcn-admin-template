@@ -1,0 +1,202 @@
+[
+  {
+    "id": "INS-001",
+    "student": "Agustín Medina",
+    "career": "Ingeniería Informática",
+    "plan": "Regular",
+    "status": "Pendiente",
+    "documents": 3,
+    "total": 4,
+    "submitted": "2025-04-20"
+  },
+  {
+    "id": "INS-002",
+    "student": "Delfina Ruiz",
+    "career": "Medicina",
+    "plan": "Becado",
+    "status": "Aprobada",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-18"
+  },
+  {
+    "id": "INS-003",
+    "student": "Tomás Álvarez",
+    "career": "Derecho",
+    "plan": "Regular",
+    "status": "Rechazada",
+    "documents": 2,
+    "total": 4,
+    "submitted": "2025-04-15"
+  },
+  {
+    "id": "INS-004",
+    "student": "Julieta Bianchi",
+    "career": "Arquitectura",
+    "plan": "Regular",
+    "status": "Pendiente",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-22"
+  },
+  {
+    "id": "INS-005",
+    "student": "Felipe Sosa",
+    "career": "Administración de Empresas",
+    "plan": "Corporativo",
+    "status": "Aprobada",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-16"
+  },
+  {
+    "id": "INS-006",
+    "student": "Milagros Peralta",
+    "career": "Psicología",
+    "plan": "Regular",
+    "status": "Pendiente",
+    "documents": 1,
+    "total": 4,
+    "submitted": "2025-04-24"
+  },
+  {
+    "id": "INS-007",
+    "student": "Nicolás Juárez",
+    "career": "Contaduría Pública",
+    "plan": "Becado",
+    "status": "Revisión",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-19"
+  },
+  {
+    "id": "INS-008",
+    "student": "Catalina Domínguez",
+    "career": "Diseño Gráfico",
+    "plan": "Regular",
+    "status": "Aprobada",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-14"
+  },
+  {
+    "id": "INS-009",
+    "student": "Bautista Oliva",
+    "career": "Ingeniería Informática",
+    "plan": "Regular",
+    "status": "Rechazada",
+    "documents": 0,
+    "total": 4,
+    "submitted": "2025-04-12"
+  },
+  {
+    "id": "INS-010",
+    "student": "Renata Cáceres",
+    "career": "Marketing Digital",
+    "plan": "Corporativo",
+    "status": "Pendiente",
+    "documents": 2,
+    "total": 4,
+    "submitted": "2025-04-25"
+  },
+  {
+    "id": "INS-011",
+    "student": "Francisco Aguirre",
+    "career": "Nutrición",
+    "plan": "Regular",
+    "status": "Revisión",
+    "documents": 3,
+    "total": 4,
+    "submitted": "2025-04-21"
+  },
+  {
+    "id": "INS-012",
+    "student": "Antonella Bustos",
+    "career": "Medicina",
+    "plan": "Becado",
+    "status": "Pendiente",
+    "documents": 0,
+    "total": 4,
+    "submitted": "2025-04-26"
+  },
+  {
+    "id": "INS-013",
+    "student": "Simón Ledesma",
+    "career": "Ingeniería Civil",
+    "plan": "Regular",
+    "status": "Aprobada",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-13"
+  },
+  {
+    "id": "INS-014",
+    "student": "Emilia Quiroga",
+    "career": "Derecho",
+    "plan": "Regular",
+    "status": "Revisión",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-17"
+  },
+  {
+    "id": "INS-015",
+    "student": "Lorenzo Paz",
+    "career": "Arquitectura",
+    "plan": "Corporativo",
+    "status": "Aprobada",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-11"
+  },
+  {
+    "id": "INS-016",
+    "student": "Victoria Miranda",
+    "career": "Psicología",
+    "plan": "Regular",
+    "status": "Pendiente",
+    "documents": 2,
+    "total": 4,
+    "submitted": "2025-04-27"
+  },
+  {
+    "id": "INS-017",
+    "student": "Joaquín Godoy",
+    "career": "Administración de Empresas",
+    "plan": "Becado",
+    "status": "Rechazada",
+    "documents": 3,
+    "total": 4,
+    "submitted": "2025-04-10"
+  },
+  {
+    "id": "INS-018",
+    "student": "Olivia Zárate",
+    "career": "Marketing Digital",
+    "plan": "Regular",
+    "status": "Aprobada",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-09"
+  },
+  {
+    "id": "INS-019",
+    "student": "Benjamín Núñez",
+    "career": "Ingeniería Informática",
+    "plan": "Corporativo",
+    "status": "Revisión",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-23"
+  },
+  {
+    "id": "INS-020",
+    "student": "Luciana Vallejos",
+    "career": "Contaduría Pública",
+    "plan": "Regular",
+    "status": "Pendiente",
+    "documents": 4,
+    "total": 4,
+    "submitted": "2025-04-28"
+  }
+]

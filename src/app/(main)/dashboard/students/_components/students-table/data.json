@@ -1,0 +1,182 @@
+[
+  {
+    "id": "STU-001",
+    "name": "Martina González",
+    "email": "martina.gonzalez@email.com",
+    "career": "Ingeniería Informática",
+    "status": "Activo",
+    "grade": 8.7,
+    "enrolled": "2025-02-15"
+  },
+  {
+    "id": "STU-002",
+    "name": "Lucas Rodríguez",
+    "email": "lucas.rodriguez@email.com",
+    "career": "Administración de Empresas",
+    "status": "Activo",
+    "grade": 9.2,
+    "enrolled": "2024-08-10"
+  },
+  {
+    "id": "STU-003",
+    "name": "Valentina Martínez",
+    "email": "valentina.martinez@email.com",
+    "career": "Diseño Gráfico",
+    "status": "Activo",
+    "grade": 7.5,
+    "enrolled": "2025-01-20"
+  },
+  {
+    "id": "STU-004",
+    "name": "Mateo Fernández",
+    "email": "mateo.fernandez@email.com",
+    "career": "Ingeniería Informática",
+    "status": "Inactivo",
+    "grade": 5.3,
+    "enrolled": "2024-03-05"
+  },
+  {
+    "id": "STU-005",
+    "name": "Camila López",
+    "email": "camila.lopez@email.com",
+    "career": "Marketing Digital",
+    "status": "Activo",
+    "grade": 9.8,
+    "enrolled": "2025-03-01"
+  },
+  {
+    "id": "STU-006",
+    "name": "Benjamín Díaz",
+    "email": "benjamin.diaz@email.com",
+    "career": "Contaduría Pública",
+    "status": "Graduado",
+    "grade": 8.1,
+    "enrolled": "2023-06-12"
+  },
+  {
+    "id": "STU-007",
+    "name": "Isabella Torres",
+    "email": "isabella.torres@email.com",
+    "career": "Psicología",
+    "status": "Activo",
+    "grade": 8.9,
+    "enrolled": "2024-11-08"
+  },
+  {
+    "id": "STU-008",
+    "name": "Santiago Ramírez",
+    "email": "santiago.ramirez@email.com",
+    "career": "Ingeniería Civil",
+    "status": "Inactivo",
+    "grade": 4.2,
+    "enrolled": "2024-07-22"
+  },
+  {
+    "id": "STU-009",
+    "name": "Sofía Herrera",
+    "email": "sofia.herrera@email.com",
+    "career": "Arquitectura",
+    "status": "Activo",
+    "grade": 8.4,
+    "enrolled": "2025-04-01"
+  },
+  {
+    "id": "STU-010",
+    "name": "Joaquín Castro",
+    "email": "joaquin.castro@email.com",
+    "career": "Medicina",
+    "status": "Activo",
+    "grade": 9.5,
+    "enrolled": "2024-09-15"
+  },
+  {
+    "id": "STU-011",
+    "name": "Emilia Vargas",
+    "email": "emilia.vargas@email.com",
+    "career": "Derecho",
+    "status": "Activo",
+    "grade": 7.8,
+    "enrolled": "2025-01-10"
+  },
+  {
+    "id": "STU-012",
+    "name": "Matías Moreno",
+    "email": "matias.moreno@email.com",
+    "career": "Ingeniería Informática",
+    "status": "Graduado",
+    "grade": 9.0,
+    "enrolled": "2022-03-18"
+  },
+  {
+    "id": "STU-013",
+    "name": "Olivia Rojas",
+    "email": "olivia.rojas@email.com",
+    "career": "Nutrición",
+    "status": "Activo",
+    "grade": 6.9,
+    "enrolled": "2025-02-28"
+  },
+  {
+    "id": "STU-014",
+    "name": "Thiago Navarro",
+    "email": "thiago.navarro@email.com",
+    "career": "Administración de Empresas",
+    "status": "Inactivo",
+    "grade": 3.8,
+    "enrolled": "2024-05-14"
+  },
+  {
+    "id": "STU-015",
+    "name": "Luciana Acosta",
+    "email": "luciana.acosta@email.com",
+    "career": "Marketing Digital",
+    "status": "Activo",
+    "grade": 8.3,
+    "enrolled": "2024-10-05"
+  },
+  {
+    "id": "STU-016",
+    "name": "Bautista Silva",
+    "email": "bautista.silva@email.com",
+    "career": "Contaduría Pública",
+    "status": "Activo",
+    "grade": 7.2,
+    "enrolled": "2025-03-15"
+  },
+  {
+    "id": "STU-017",
+    "name": "Renata Paredes",
+    "email": "renata.paredes@email.com",
+    "career": "Ingeniería Informática",
+    "status": "Activo",
+    "grade": 9.3,
+    "enrolled": "2024-12-20"
+  },
+  {
+    "id": "STU-018",
+    "name": "Francisco Mendoza",
+    "email": "francisco.mendoza@email.com",
+    "career": "Arquitectura",
+    "status": "Graduado",
+    "grade": 8.6,
+    "enrolled": "2023-01-08"
+  },
+  {
+    "id": "STU-019",
+    "name": "Antonella Guzmán",
+    "email": "antonella.guzman@email.com",
+    "career": "Psicología",
+    "status": "Activo",
+    "grade": 7.9,
+    "enrolled": "2025-01-25"
+  },
+  {
+    "id": "STU-020",
+    "name": "Juan Ignacio Flores",
+    "email": "juan.flores@email.com",
+    "career": "Medicina",
+    "status": "Activo",
+    "grade": 9.1,
+    "enrolled": "2024-06-30"
+  }
+]

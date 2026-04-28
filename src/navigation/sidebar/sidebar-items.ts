@@ -13,6 +13,7 @@ import {
   type LucideIcon,
   Mail,
   MessageSquare,
+  PenLine,
   ReceiptText,
   ShoppingBag,
   SquareArrowUpRight,
@@ -73,6 +74,16 @@ export const sidebarItems: NavGroup[] = [
         title: "Productivity",
         url: "/dashboard/productivity",
         icon: ListTodo,
+      },
+      {
+        title: "Students",
+        url: "/dashboard/students",
+        icon: Users,
+      },
+      {
+        title: "Enrollment",
+        url: "/dashboard/enrollment",
+        icon: PenLine,
       },
       {
         title: "E-commerce",
