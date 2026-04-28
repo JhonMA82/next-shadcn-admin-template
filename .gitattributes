@@ -1,0 +1,2 @@
+# Enforce LF for all text files — required by Biome (lineEnding: "lf" in biome.json)
+* text=auto eol=lf
