@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { NativeSelect } from "@/components/ui/native-select";
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
@@ -126,11 +126,16 @@ export function EnrollmentForm() {
                   render={({ field, fieldState }) => (
                     <Field className="gap-1.5" data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor="enrollment-career">Carrera</FieldLabel>
-                      <NativeSelect {...field} id="enrollment-career" aria-invalid={fieldState.invalid}>
+                      <NativeSelect
+                        {...field}
+                        id="enrollment-career"
+                        aria-invalid={fieldState.invalid}
+                        className="w-full"
+                      >
                         {careers.map((c) => (
-                          <option key={c.value} value={c.value}>
+                          <NativeSelectOption key={c.value} value={c.value}>
                             {c.label}
-                          </option>
+                          </NativeSelectOption>
                         ))}
                       </NativeSelect>
                       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -143,11 +148,16 @@ export function EnrollmentForm() {
                   render={({ field, fieldState }) => (
                     <Field className="gap-1.5" data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor="enrollment-plan">Plan</FieldLabel>
-                      <NativeSelect {...field} id="enrollment-plan" aria-invalid={fieldState.invalid}>
+                      <NativeSelect
+                        {...field}
+                        id="enrollment-plan"
+                        aria-invalid={fieldState.invalid}
+                        className="w-full"
+                      >
                         {plans.map((p) => (
-                          <option key={p.value} value={p.value}>
+                          <NativeSelectOption key={p.value} value={p.value}>
                             {p.label}
-                          </option>
+                          </NativeSelectOption>
                         ))}
                       </NativeSelect>
                       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
