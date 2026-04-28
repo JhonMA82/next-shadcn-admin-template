@@ -68,8 +68,29 @@ Preferences (theme mode, preset, font, layout, sidebar variant, navbar style) us
 - `drizzle/` and `src/trpc/` directories are empty stubs. No database yet.
 - `config/` at root is empty (not used). App config is at `src/config/app-config.ts`.
 
+## Creating Dashboard Pages
+
+To add a new dashboard, touch only **2 files**:
+
+| Action | File |
+|--------|------|
+| Sidebar entry | `src/navigation/sidebar/sidebar-items.ts` — add item to appropriate group |
+| Page component | `src/app/(main)/dashboard/<name>/page.tsx` — Server Component, no `"use client"` |
+
+Local components go in `_components/` next to `page.tsx`. Layout, theme, search, and preferences are inherited automatically — no extra wiring.
+
+For TanStack Table components, add both directives: `"use client"` and `"use no memo"` (React Compiler compatibility).
+
+Full patterns: see [studio-admin-dashboard skill](skills/studio-admin-dashboard/SKILL.md).
+
 ## Conventions
 
 - Commit messages use conventional prefixes: `feat:`, `fix:`, `chore:`.
 - Biome enforces: double quotes in JSX, semicolons, trailing commas, self-closing elements, no `any`, sorted Tailwind classes.
 - `tw-animate-css` provides animation utilities (imported in `globals.css`).
+
+## Available Skills
+
+| Skill | Description |
+|-------|-------------|
+| `studio-admin-dashboard` | Dashboard page creation patterns, sidebar navigation, TanStack Table setup |
