@@ -1,5 +1,4 @@
-import enrollmentsData from "./_components/enrollments-table/data.json";
-import { EnrollmentsTable } from "./_components/enrollments-table/table";
+import { EnrollmentForm } from "./_components/enrollment-form";
 import { MetricCards } from "./_components/metric-cards";
 
 export default function Page() {
@@ -8,11 +7,11 @@ export default function Page() {
       <div>
         <h1 className="font-semibold text-2xl">Inscripción de Alumnos</h1>
         <p className="text-muted-foreground text-sm">
-          Gestioná las solicitudes de inscripción, verificá documentos y confirmá el ingreso de nuevos alumnos.
+          Completá el formulario para registrar un nuevo alumno. Todos los campos marcados son obligatorios.
         </p>
       </div>
       <MetricCards />
-      <EnrollmentsTable data={enrollmentsData} />
+      <EnrollmentForm />
     </div>
   );
 }
