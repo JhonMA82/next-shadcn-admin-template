@@ -171,6 +171,7 @@ export const sidebarItems: NavGroup[] = [
       {
         title: "Dashboards",
         url: "/dashboard/default-v1",
+        icon: LayoutDashboard,
         subItems: [
           { title: "Default V1", url: "/dashboard/default-v1" },
           { title: "CRM V1", url: "/dashboard/crm-v1" },
